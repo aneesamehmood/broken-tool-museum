@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-black text-eerieGreen">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Broken Calculator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'VT323', monospace;
+      background-color: black;
+      color: #39FF14;
+      user-select: none;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    h1 {
+      animation: glitch 1.5s infinite;
+    }
+
+    .glow {
+      box-shadow: 0 0 25px #39FF14;
+    }
+
+    button {
+      transition: all 0.1s ease-in-out;
+    }
+
+    button:hover {
+      background-color: #39FF14;
+      color: black;
+    }
+
+    .btn {
+      background-color: black;
+      border: 1px solid #39FF14;
+      padding: 0.75rem;
+      font-size: 1.25rem;
+      color: #39FF14;
+      font-family: 'VT323', monospace;
+      border-radius: 0.25rem;
+    }
+
+    .haunt {
+      background-color: #1a0000 !important;
+      color: #ff4d4d !important;
+      border-color: #ff4d4d !important;
+      box-shadow: 0 0 30px #ff0000aa !important;
+    }
+
+    @keyframes glitch {
+      0% { text-shadow: 2px 0 red; }
+      20% { text-shadow: -2px 0 blue; }
+      40% { text-shadow: 2px 2px red; }
+      60% { text-shadow: -2px -2px blue; }
+      80% { text-shadow: 1px -1px green; }
+      100% { text-shadow: none; }
+    }
+
+    .message-flicker {
+      animation: flicker 2.5s infinite;
+    }
+
+    @keyframes flicker {
+      0% { opacity: 1; }
+      5% { opacity: 0.2; }
+      10% { opacity: 1; }
+      20% { opacity: 0.4; }
+      25% { opacity: 1; }
+      30% { opacity: 0.3; }
+      100% { opacity: 0.95; }
+    }
+  </style>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen px-4">
+
+  <h1 class="text-4xl mb-6 text-red-500">/broken-calc/</h1>
+
+  <div id="calc-wrapper" class="bg-black p-4 rounded-md border border-green-400 glow w-full max-w-xs transition-all">
+    <input
+      id="display"
+      class="w-full mb-2 p-2 bg-black border border-green-400 text-xl text-right"
+      disabled
+    />
+    <div class="grid grid-cols-4 gap-2">
+      <button class="btn" onclick="press('7')">7</button>
+      <button class="btn" onclick="press('8')">8</button>
+      <button class="btn" onclick="press('9')">9</button>
+      <button class="btn" onclick="press('+')">+</button>
+
+      <button class="btn" onclick="press('4')">4</button>
+      <button class="btn" onclick="press('5')">5</button>
+      <button class="btn" onclick="press('6')">6</button>
+      <button class="btn" onclick="press('-')">-</button>
+
+      <button class="btn" onclick="press('1')">1</button>
+      <button class="btn" onclick="press('2')">2</button>
+      <button class="btn" onclick="press('3')">3</button>
+      <button class="btn" onclick="press('*')">*</button>
+
+      <button class="btn" onclick="press('0')">0</button>
+      <button class="btn" onclick="clearDisplay()">C</button>
+      <button class="btn" onclick="calculate()">=</button>
+      <button class="btn" onclick="press('/')">/</button>
+    </div>
+  </div>
+
+  <p id="msg" class="text-md mt-4 text-center italic text-green-500 message-flicker">
+    This calculator is slightly... off.
+  </p>
+
+  <script>
+  const display = document.getElementById('display');
+  const msg = document.getElementById('msg');
+  const wrapper = document.getElementById('calc-wrapper');
+
+  const eerieMessages = [
+    "This calculator is slightly... off.",
+    "Why is it watching?",
+    "It remembers every input.",
+    "Your numbers belong to us.",
+    "The sum is wrong on purpose.",
+    "It’s not a bug. It’s a warning.",
+    "Who's really calculating?",
+    "Just keep typing. It likes that.",
+    "You shouldn't be here.",
+    "We tried to fix it. We failed.",
+    "The result... isn’t yours.",
+    "Nothing equals nothing.",
+    "did you press that?",
+    "ghost_typing = true;",
+    "unrequested input detected",
+    "someone else is typing..."
+  ];
+
+  const hauntedKeys = ['7', '8', '9', '+', '4', '5', '6', '-', '1', '2', '3', '*', '0', '/'];
+
+  function press(val) {
+    display.value += val;
+
+    if (display.value.includes('666')) {
+      wrapper.classList.add('haunt');
+      msg.textContent = "you summoned it.";
+      msg.style.color = '#ff4d4d';
+      msg.classList.add('animate-pulse');
+
+      setTimeout(() => {
+        wrapper.classList.remove('haunt');
+        msg.textContent = eerieMessages[Math.floor(Math.random() * eerieMessages.length)];
+        msg.style.color = '#39FF14';
+        msg.classList.remove('animate-pulse');
+      }, 3500);
+    }
+  }
+
+  function clearDisplay() {
+    const mode = Math.random();
+
+    if (mode < 0.2) {
+      msg.textContent = "no.";
+      return;
+    }
+
+    if (mode < 0.4) {
+      const temp = display.value;
+      display.value = '';
+      msg.textContent = "did you think it was that easy?";
+      setTimeout(() => {
+        display.value = temp;
+        msg.textContent = eerieMessages[Math.floor(Math.random() * eerieMessages.length)];
+      }, 2000);
+      return;
+    }
+
+    if (mode < 0.7) {
+      let content = display.value;
+      let i = content.length;
+
+      function slowErase() {
+        if (i > 0) {
+          display.value = content.slice(0, --i);
+          setTimeout(slowErase, 100);
+        } else {
+          msg.textContent = eerieMessages[Math.floor(Math.random() * eerieMessages.length)];
+        }
+      }
+      slowErase();
+      return;
+    }
+
+    display.value = '';
+    msg.textContent = eerieMessages[Math.floor(Math.random() * eerieMessages.length)];
+  }
+
+  function calculate() {
+    const input = display.value;
+    let actualResult;
+
+    try {
+      actualResult = eval(input);
+    } catch {
+      display.value = 'ERROR';
+      return;
+    }
+
+    const chance = Math.random();
+    if (chance < 0.25) {
+      display.value = actualResult;
+    } else if (chance < 0.5) {
+      display.value = '42';
+    } else {
+      const offset = Math.floor(Math.random() * 100 - 50);
+      display.value = actualResult + offset;
+    }
+
+    if (Math.random() < 0.1) {
+      wrapper.style.opacity = '0.2';
+      wrapper.style.filter = 'blur(2px)';
+      setTimeout(() => {
+        wrapper.style.opacity = '1';
+        wrapper.style.filter = 'none';
+      }, 200);
+    }
+
+    msg.textContent = eerieMessages[Math.floor(Math.random() * eerieMessages.length)];
+  }
+
+  // Update message regularly
+  setInterval(() => {
+    if (!wrapper.classList.contains('haunt')) {
+      msg.textContent = eerieMessages[Math.floor(Math.random() * eerieMessages.length)];
+    }
+  }, 7000);
+
+  // 👻 Ghost typing logic
+  setInterval(() => {
+    if (Math.random() < 0.08) { // ~8% chance every 20s
+      const key = hauntedKeys[Math.floor(Math.random() * hauntedKeys.length)];
+      press(key);
+
+      // Flicker effect
+      wrapper.style.opacity = '0.5';
+      msg.textContent = eerieMessages[Math.floor(Math.random() * eerieMessages.length)];
+      msg.classList.add('animate-pulse');
+
+      setTimeout(() => {
+        wrapper.style.opacity = '1';
+        msg.classList.remove('animate-pulse');
+      }, 700);
+    }
+  }, 5000);
+</script>
+
+
+<div class="w-full flex justify-between items-center mt-10 px-4 text-lg text-green-500">
+  <a href="/" class="hover:text-glitchRed transition duration-150 glitch-hover">← return to museum index</a>
+  <a href="./notepad.html" class="hover:text-glitchRed transition duration-150 glitch-hover">next artifact →</a>
+</body>
+</html>

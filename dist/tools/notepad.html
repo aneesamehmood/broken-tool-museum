@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-black text-eerieGreen">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>/log.txt</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'VT323', monospace;
+            background-color: black;
+            color: #39FF14;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            overflow: hidden;
+            transition: background-color 0.2s ease;
+        }
+
+        h1 {
+            animation: glitch 1.5s infinite;
+        }
+
+        textarea {
+            background: black;
+            color: #39FF14;
+            border: 1px solid #39FF14;
+            width: 80vw;
+            max-width: 600px;
+            height: 300px;
+            padding: 1rem;
+            font-size: 1.25rem;
+            font-family: 'VT323', monospace;
+            resize: none;
+            box-shadow: 0 0 20px #39FF14aa;
+        }
+
+        @keyframes glitch {
+            0% {
+                text-shadow: 2px 0 red;
+            }
+
+            20% {
+                text-shadow: -2px 0 blue;
+            }
+
+            40% {
+                text-shadow: 2px 2px red;
+            }
+
+            60% {
+                text-shadow: -2px -2px blue;
+            }
+
+            80% {
+                text-shadow: 1px -1px green;
+            }
+
+            100% {
+                text-shadow: none;
+            }
+        }
+
+        @keyframes flicker {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            10% {
+                opacity: 0.6;
+            }
+
+            20% {
+                opacity: 0.2;
+            }
+
+            30% {
+                opacity: 0.8;
+            }
+
+            40% {
+                opacity: 0.4;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .animate-flicker {
+            animation: flicker 2s infinite;
+        }
+    </style>
+</head>
+
+<body class="flex flex-col items-center justify-center min-h-screen px-4">
+
+    <h1 class="text-3xl mb-4 text-glitchRed">/log.txt</h1>
+
+    <textarea id="notepad" placeholder="Start typing..."></textarea>
+
+    <p id="status" class="text-md mt-4 italic text-green-500 animate-flicker text-center">// logging enabled...</p>
+
+    <script>
+        const notepad = document.getElementById("notepad");
+  const status = document.getElementById("status");
+
+  let lastTyped = Date.now();
+  let isGhostTyping = false;
+
+  notepad.setAttribute("wrap", "off");
+  notepad.style.overflow = "hidden";
+
+        const hauntedLines = [
+            "hello.hello.hello.",
+            "why are you still here",
+            "you’re not supposed to see this",
+            "stop typing",
+            "this isn’t your notepad anymore",
+            "we’ve been watching",
+            "look behind you",
+            "he’s here",
+            "you weren’t alone last time either",
+            "get out of the file.",
+            "ghost_typing=true",
+            "undefined behavior enabled",
+            "you left the cursor open too long",
+            "memory leak initiated...",
+            "this isn’t a tool, it’s a doorway",
+            "fatal.log injected",
+            "no way out",
+            "▯▯▯▯▯▯▯▯▯▯▯▯",
+            "restart required. or is it?",
+            "it remembers you.",
+            "you already broke it",
+            "you’ve triggered something",
+            "echo detected",
+            "exit.exit.exit.exit.exit.exit"
+        ];
+
+        const scaryTriggers = ["look behind you", "he’s here", "get out of the file.", "▯▯▯▯▯▯▯▯▯▯▯▯", "you already broke it"];
+
+        const consoleMessages = [
+            "// anomaly detected",
+            "// memory mismatch",
+            "// suppressing event logs",
+            "// ghost thread resumed",
+            "// system breach at sector 0x13"
+        ];
+
+        setInterval(() => {
+    const msg = consoleMessages[Math.floor(Math.random() * consoleMessages.length)];
+    status.textContent = msg;
+    status.style.color = "#00BFFF";
+  }, 8500);
+
+  notepad.addEventListener("keydown", () => {
+    lastTyped = Date.now();
+  });
+
+  notepad.addEventListener("input", () => {
+    notepad.value = notepad.value.replace(/\n/g, " ");
+  });
+
+  setInterval(() => {
+    if (isGhostTyping) return;
+    if (Math.random() < 0.5) {
+      isGhostTyping = true;
+
+      const userText = notepad.value;
+      const ghostLine = hauntedLines[Math.floor(Math.random() * hauntedLines.length)];
+      const triggerEffect = scaryTriggers.includes(ghostLine);
+
+      const insertPoint = Math.floor(Math.random() * userText.length);
+      let prefix = userText.slice(0, insertPoint);
+      let suffix = userText.slice(insertPoint);
+
+      if (Math.random() < 0.5) prefix += "\n";
+
+      let ghostText = "";
+      let i = 0;
+
+      const typeInterval = setInterval(() => {
+        if (i < ghostLine.length) {
+          ghostText += ghostLine[i];
+          notepad.value = prefix + ghostText + suffix;
+
+          // Apply flicker class briefly
+          if (Math.random() < 0.2) {
+            notepad.classList.add("animate-flicker");
+            setTimeout(() => notepad.classList.remove("animate-flicker"), 250);
+          }
+
+          i++;
+        } else {
+          clearInterval(typeInterval);
+
+          // Pause before deletion
+          setTimeout(() => {
+            let j = ghostText.length;
+            const deleteInterval = setInterval(() => {
+              j--;
+              ghostText = ghostText.slice(0, j);
+              notepad.value = prefix + ghostText + suffix;
+
+              if (j === 0) {
+                isGhostTyping = false;
+                clearInterval(deleteInterval);
+              }
+            }, 90);
+          }, 1000);
+
+          if (triggerEffect) {
+            document.body.style.backgroundColor = "darkred";
+            setTimeout(() => {
+              document.body.style.backgroundColor = "black";
+            }, 300);
+          }
+        }
+      }, 80);
+    }
+  }, 4500);
+</script>
+
+    <div class="w-full flex justify-between items-center mt-10 px-4 text-lg text-green-500">
+        <a href="/" class="hover:text-glitchRed transition duration-150 glitch-hover">← return to museum index</a>
+        <a href="./form404.html" class="hover:text-glitchRed transition duration-150 glitch-hover">next artifact →</a>
+    </div>
+</body>
+
+</html>

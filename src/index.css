@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-black text-eerieGreen font-mono;
+  }
+}
+
+h1 {
+  @apply animate-glitch font-pixel text-3xl text-glitchRed;
+}
+
+html, body {
+  cursor: none;
+}
+
+.glitch-hover:hover {
+  transform: skew(-1deg) scale(1.01);
+  text-shadow: 0 0 5px #ff0000, 2px 0 2px #00ffea;
+}
+
+
+@keyframes glitch {
+  0% { text-shadow: 2px 0 red; }
+  20% { text-shadow: -2px 0 blue; }
+  40% { text-shadow: 2px 2px red; }
+  60% { text-shadow: -2px -2px blue; }
+  80% { text-shadow: 1px -1px green; }
+  100% { text-shadow: none; }
+}
+
+@keyframes flicker {
+  0%   { opacity: 1; }
+  5%   { opacity: 0.3; }
+  10%  { opacity: 1; }
+  20%  { opacity: 0.6; }
+  25%  { opacity: 1; }
+  30%  { opacity: 0.2; }
+  100% { opacity: 0.9; }
+}
+
+@keyframes pulseSlow {
+  0%, 100% { box-shadow: 0 0 30px #39FF14; }
+  50%      { box-shadow: 0 0 60px #39FF14aa; }
+}
+
+.animate-glitch {
+  animation: glitch 1.5s infinite;
+}
+
+.glitch-flicker {
+  animation: flicker 2.5s infinite;
+}
+
+.animate-pulseSlow {
+  animation: pulseSlow 6s ease-in-out infinite;
+}
+
+.glitch-hover:hover {
+  transform: skew(-2deg) scale(1.01);
+  filter: contrast(130%) brightness(1.2);
+  text-shadow: 0 0 5px #ff0000, 2px 0 2px #00ffea;
+}
+
+* {
+  cursor: default;
+  user-select: none;
+}
+a, button {
+  cursor: pointer;
+}
