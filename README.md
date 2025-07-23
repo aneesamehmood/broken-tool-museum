@@ -1,12 +1,41 @@
-# React + Vite
+# 🛠️ Broken Tool Museum
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**A haunted interactive website where nothing works quite right.**
 
-Currently, two official plugins are available:
+This experimental project explores control, discomfort, and illusion through a series of eerie, broken tools:  
+- A notepad that types on its own  
+- A calculator that lies  
+- A form that will never let you submit  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+You’re not alone here.  
+You’re not in control.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🧪 Features
+
+- ✍️ **Haunted Notepad**: Types back, erases words, and responds to you
+- 🔢 **Glitched Calculator**: Broken buttons, cursed results, strange reactions
+- 📮 **Form 404**: You can try to submit... but it won't let you
+
+---
+
+## 📁 Live Site
+
+[🔗 Visit the Museum on Netlify](https://broken-tool-museum.netlify.app/)
+
+---
+
+## 🛠️ Built With
+
+- HTML, CSS, JavaScript, React, Vite
+- Tailwind CSS for styling
+- Inspired by analog horror, glitch art, and weird web experiments
+
+---
+
+## ⚠️ Disclaimer
+
+This project is intentionally unsettling.  
+It’s a creative experiment in user experience — nothing here actually works.
+
